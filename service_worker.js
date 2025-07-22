@@ -1,8 +1,10 @@
 const CACHE_NAME = 's-kidneys-v1'
 
 const assetUrls = [
-	'/Three-Kidneys/manifest.json',
 	'/Three-Kidneys/',
+	'/Three-Kidneys/manifest.json',
+	'/Three-Kidneys/icon512_rounded.png',
+	'/Three-Kidneys/icon512_maskable.png',
 	'/Three-Kidneys/index.html',
 	'/Three-Kidneys/service_worker.js',
 	'/Three-Kidneys/organs.html',
