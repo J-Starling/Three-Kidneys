@@ -5,6 +5,7 @@
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -35,13 +36,6 @@
 	<footer>
 		Ваши органы - наша забота!
 	</footer>
-
-
-	<script>
-	if ('serverWorker' in navigator){
-		navigator.serverWorker.register('/server_worker.js', {scope: '/'});
-	}
-	</script>
 	
 </body>
 
