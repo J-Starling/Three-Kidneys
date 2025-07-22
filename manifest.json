@@ -19,6 +19,7 @@
 	"lang":"ru",
 	"name":"Магазин \"Три почки\"",
 	"short_name":"Три почки",
-	"start_url":"https://three-kidneys.ru/app/index.html",
-	"scope":"https://three-kidneys.ru/app"
+	"description":"Сайт для продажи органов",
+	"start_url":"Three-Kidneys/index.html",
+	"scope":"/Three-Kidneys/"
 }
