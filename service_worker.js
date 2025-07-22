@@ -25,7 +25,7 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Кэшируем основные файлы');
-        return cache.addAll(urlsToCache).catch(err => {
+        return cache.addAll(assetUrls).catch(err => {
           console.error('Ошибка кэширования:', err);
         });
       })
