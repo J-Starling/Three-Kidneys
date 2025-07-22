@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <title>Три почки - Органы</title>
+	<link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <img src="kidney_l.png" width="210" align="left">
+        <img src="kidney_r.png" width="210" align="right">
+        <h1>Магазин органов "Три почки&trade;"</h1>
+        <img src="logo.png" width="210" align="center">
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="organs.html">Органы</a></li>
+            <li><a href="feedback.php">Обратная связь</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <div id="article">
+                <h2>Наш ассортимент органов</h2>
+                <p>Все органы проходят тщательную проверку и сертификацию. Гарантия качества - 1 год или до первой успешной трансплантации.</p>
+                
+                <div class="organ-item">
+                    <h2>Головной мозг <img src="organs/brain.png" width="100" align="right"></h2>
+                    <p>Функции: контролирует работу всех органов и систем, обрабатывает сенсорную информацию, регулирует поведение, мышление, эмоции, память и речь.</p>
+                    <div class="price-tag">От 500 000 руб.</div>
+                </div>
+                
+                <div class="organ-item">
+                    <h2>Сердце <img src="organs/heart.png" width="100" align="right"></h2>
+                    <p>Функция: перекачивает кровь по сосудам, обеспечивая доставку кислорода и питательных веществ ко всем органам и тканям.</p>
+                    <div class="price-tag">От 300 000 руб.</div>
+                </div>
+                
+                <div class="organ-item">
+                    <h2>Легкие <img src="organs/lungs.png" width="100" align="right"></h2>
+                    <p>Функции: обеспечивают газообмен между кровью и воздухом, насыщают кровь кислородом и выводят углекислый газ.</p>
+                    <div class="price-tag">От 250 000 руб./пара</div>
+                </div>
+                
+                <div class="organ-item">
+                    <h2>Желудок <img src="organs/stomach.png" width="100" align="right"></h2>
+                    <p>Функция: переваривает пищу путем механической обработки и воздействия желудочного сока, содержащего ферменты и соляную кислоту.</p>
+                    <div class="price-tag">От 150 000 руб.</div>
+                </div>
+                
+                <div class="organ-item">
+                    <h2>Кишечник <img src="organs/intestine.png" width="100" align="right"></h2>
+                    <p>Подразделяется на тонкий кишечник (двенадцатиперстная кишка, тощая кишка, подвздошная кишка), где осуществляется основное всасывание питательных веществ, и толстый кишечник (слепая кишка, ободочная кишка, прямая кишка), где формируются каловые массы и поглощается вода.</p>
+                    <div class="price-tag">От 200 000 руб./метр</div>
+                </div>
+                
+                <div class="organ-item">
+                    <h2>Печень <img src="organs/liver.png" width="100" align="right"></h2>
+                    <p>Функции: участвует в обмене веществ, обезвреживании токсинов, синтезирует желчь, необходимую для пищеварения жиров, хранит гликоген и витамины.</p>
+                    <div class="price-tag">От 350 000 руб.</div>
+                </div>
+                
+                <div class="organ-item highlight">
+                    <h2>Почки <img src="organs/kidney.png" width="100" align="right"></h2>
+                    <p>Функции: фильтруют кровь, удаляют отходы жизнедеятельности, поддерживают водно-солевой баланс, регулируют артериальное давление и кислотно-щелочной баланс.</p>
+                    <div class="price-tag special">От 200 000 руб./шт. (при покупке двух - скидка 20%)</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Ваши органы - наша забота!
+    </footer>
+	
+	<script>
+	if ('serviceWorker' in navigator){
+		navigator.serviceWorker.register('/server_worker', {scope: '/'});
+	}
+	</script>
+
+</body>
+
+</html>

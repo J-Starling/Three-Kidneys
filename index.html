@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Три почки</title>
+	<link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <img src="kidney_l.png" width="210" align="left">
+        <img src="kidney_r.png" width="210" align="right">
+        <h1>Магазин органов "Три почки&trade;"</h1>
+        <img src="logo.png" width="210" align="center">
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="organs.html">Органы</a></li>
+            <li><a href="feedback.php">Обратная связь</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <div id="article">
+                <h2>Добро пожаловать в наш магазин органов!</h2>
+                <p>Мы предлагаем широкий ассортимент качественных органов для всех ваших нужд. Наши продукты проходят строгий контроль качества и поставляются только от проверенных доноров.</p>
+                <p>В нашем магазине вы найдете всё: от дополнительных почек до редких экземпляров мозга. Все органы хранятся в идеальных условиях и готовы к немедленной трансплантации.</p>
+                <div style="margin: 2rem 0; padding: 1rem; background: #f8f8f8; border-radius: 8px; border-left: 4px solid #b20000;">
+                    <h3 style="color: #b20000; margin-top: 0;">Акция недели!</h3>
+                    <p>При покупке двух почек - третья в подарок!*</p>
+                    <p style="font-size: 0.8em; color: #666;">*Подробности уточняйте у менеджера.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Ваши органы - наша забота!
+    </footer>
+	
+	<script>
+	if ('serviceWorker' in navigator){
+		navigator.serviceWorker.register('/server_worker', {scope: '/'});
+	}
+	</script>
+
+</body>
+
+</html>
