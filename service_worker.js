@@ -1,5 +1,25 @@
 const CACHE_NAME = 's-kidneys-v1'
 
+const assetUrls = [
+	'/Three-Kidneys/',
+	'/Three-Kidneys/index.html',
+	'/Three-Kidneys/organs.html',
+	'/Three-Kidneys/feedback.php',
+	'/Three-Kidneys/contacts.html',
+	'/Three-Kidneys/style.css',
+	'/Three-Kidneys/kidney_l.png',
+	'/Three-Kidneys/kidney_r.png',
+	'/Three-Kidneys/logo.png',
+	'/Three-Kidneys/dmitriy.png',
+	'/Three-Kidneys/organs/heart.png',
+	'/Three-Kidneys/organs/kidney.png',
+	'/Three-Kidneys/organs/intestine.png',
+	'/Three-Kidneys/organs/brain.png',
+	'/Three-Kidneys/organs/liver.png',
+	'/Three-Kidneys/organs/stomach.png',
+	'/Three-Kidneys/organs/lungs.png'
+]
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -54,22 +74,3 @@ self.addEventListener('activate', event => {
     })
   );
 });
-const assetUrls = [
-	'/Three-Kidneys/',
-	'/Three-Kidneys/index.html',
-	'/Three-Kidneys/organs.html',
-	'/Three-Kidneys/feedback.php',
-	'/Three-Kidneys/contacts.html',
-	'/Three-Kidneys/style.css',
-	'/Three-Kidneys/kidney_l.png',
-	'/Three-Kidneys/kidney_r.png',
-	'/Three-Kidneys/logo.png',
-	'/Three-Kidneys/dmitriy.png',
-	'/Three-Kidneys/organs/heart.png',
-	'/Three-Kidneys/organs/kidney.png',
-	'/Three-Kidneys/organs/intestine.png',
-	'/Three-Kidneys/organs/brain.png',
-	'/Three-Kidneys/organs/liver.png',
-	'/Three-Kidneys/organs/stomach.png',
-	'/Three-Kidneys/organs/lungs.png'
-]
