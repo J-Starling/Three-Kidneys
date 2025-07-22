@@ -1,3 +1,5 @@
+const CACHE_NAME = 's-kidneys-v1'
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -71,5 +73,3 @@ const assetUrls = [
 	'/Three-Kidneys/organs/stomach.png',
 	'/Three-Kidneys/organs/lungs.png'
 ]
-
-const CACHE_NAME = 's-app-v1'
