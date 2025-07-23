@@ -22,6 +22,6 @@
     "name": "Магазин \"Три почки\"",
     "short_name": "Три почки",
     "description": "Сайт для продажи органов",
-    "start_url": "index.html",
-    "scope": "/"
+    "start_url": "/Three-Kidneys/index.html",
+    "scope": "/Three-Kidneys/"
 }
