@@ -238,3 +238,80 @@ header img:nth-child(2) {
 header img:nth-child(4) {
     animation-delay: 1s;
 }
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.5rem 0;
+    }
+    
+    header img {
+        width: 100px;
+        margin: 0 5px;
+    }
+    
+    header h1 {
+        font-size: 1.5em;
+        margin: 0.3em 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        margin: 0;
+    }
+    
+    nav ul li a {
+        padding: 0.5rem;
+    }
+    
+    main {
+        padding: 0.5rem;
+    }
+    
+    #content {
+        padding: 1rem;
+    }
+    
+    #article img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .organ-item {
+        padding: 10px;
+    }
+    
+    .organ-item img {
+        width: 60px;
+        float: right;
+    }
+    
+    form {
+        padding: 1rem;
+    }
+    
+    footer {
+        padding: 1rem 0;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2em;
+    }
+    
+    header img {
+        width: 80px;
+    }
+    
+    h2 {
+        font-size: 1.3em;
+    }
+    
+    .price-tag {
+        font-size: 0.9em;
+    }
+}
