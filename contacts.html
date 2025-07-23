@@ -1,43 +1,57 @@
 <html>
 
 <head>
-	<title>Три почки - Контакты</title>
-	<link rel="icon" href="logo.png" type="image/png">
+    <title>Три почки - Контакты</title>
+    <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b20000">
 </head>
 
 <body>
-	<header>
+    <header>
         <img src="kidney_l.png" width="210" align="left">
         <img src="kidney_r.png" width="210" align="right">
         <h1>Магазин органов "Три почки&trade;"</h1>
         <img src="logo.png" width="210" align="center">
     </header>
-		<nav>
-			<ul>
-				<li><a href="index.html">Главная</a></li>
-				<li><a href="organs.html">Органы</a></li>
-				<li><a href="feedback.php">Обратная связь</a></li>
-				<li><a href="contacts.html">Контакты</a></li>
-			</ul>
-		</nav>
-		<main>
-		<div id="content">
-			<div id="article">
-				<img src="dmitriy.jpg" width="400">
-				<h2>Аксёнов Дмитрий</h2>
-				<p>Знакомьтесь, основатель компании, профессиональный продавец, директор магазина и главный (и единственный) поставщик.</p>
-			</div>
-		</div>
-	</main>
-	
-	<footer>
-		Ваши органы - наша забота!
-	</footer>
-	
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="organs.html">Органы</a></li>
+            <li><a href="feedback.php">Обратная связь</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <div id="article">
+                <img src="dmitriy.jpg" width="400" style="max-width:100%; height:auto;">
+                <h2>Аксёнов Дмитрий</h2>
+                <p>Знакомьтесь, основатель компании, профессиональный продавец, директор магазина и главный (и единственный) поставщик.</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        Ваши органы - наша забота!
+    </footer>
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service_worker.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+    </script>
 </body>
 
-</html> 
+</html>
