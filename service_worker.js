@@ -1,81 +1,65 @@
-const CACHE_NAME = 's-kidneys-v1'
-
-const assetUrls = [
-	'/Three-Kidneys/',
-	'/Three-Kidneys/manifest.json',
-	'/Three-Kidneys/icon512_rounded.png',
-	'/Three-Kidneys/icon512_maskable.png',
-	'/Three-Kidneys/index.html',
-	'/Three-Kidneys/service_worker.js',
-	'/Three-Kidneys/organs.html',
-	'/Three-Kidneys/feedback.php',
-	'/Three-Kidneys/form.php',
-	'/Three-Kidneys/contacts.html',
-	'/Three-Kidneys/style.css',
-	'/Three-Kidneys/kidney_l.png',
-	'/Three-Kidneys/kidney_r.png',
-	'/Three-Kidneys/logo.png',
-	'/Three-Kidneys/dmitriy.png',
-	'/Three-Kidneys/organs/heart.png',
-	'/Three-Kidneys/organs/kidney.png',
-	'/Three-Kidneys/organs/intestine.png',
-	'/Three-Kidneys/organs/brain.png',
-	'/Three-Kidneys/organs/liver.png',
-	'/Three-Kidneys/organs/stomach.png',
-	'/Three-Kidneys/organs/lungs.png'
-]
+const CACHE_NAME = 's-kidneys-v2';
+const ASSETS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon512_rounded.png',
+  '/icon512_maskable.png',
+  '/service_worker.js',
+  '/organs.html',
+  '/feedback.php',
+  '/form.php',
+  '/contacts.html',
+  '/style.css',
+  '/kidney_l.png',
+  '/kidney_r.png',
+  '/logo.png',
+  '/dmitriy.jpg',
+  '/organs/heart.png',
+  '/organs/kidney.png',
+  '/organs/intestine.png',
+  '/organs/brain.png',
+  '/organs/liver.png',
+  '/organs/stomach.png',
+  '/organs/lungs.png'
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Кэшируем основные файлы');
-        return cache.addAll(assetUrls).catch(err => {
-          console.error('Ошибка кэширования:', err);
-        });
-      })
+      .then(cache => cache.addAll(ASSETS))
+      .catch(err => console.log('Cache error:', err))
   );
 });
 
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        
-        return fetch(event.request).then(
-          response => {
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
+      .then(cached => {
+        return cached || fetch(event.request)
+          .then(response => {
+            if (!response || response.status !== 200) return response;
+            
             const responseToCache = response.clone();
-
             caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
+              .then(cache => cache.put(event.request, responseToCache));
+            
             return response;
-          }
-        );
+          });
       })
   );
 });
 
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys().then(keys => 
+      Promise.all(
+        keys.map(key => 
+          key !== CACHE_NAME ? caches.delete(key) : Promise.resolve()
+        )
+      )
+    )
   );
 });
