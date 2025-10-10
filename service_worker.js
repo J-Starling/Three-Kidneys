@@ -1,5 +1,3 @@
-[file name]: service_worker.js
-[file content begin]
 const CACHE_NAME = 's-kidneys-v3';
 const ASSETS = [
   '/',
@@ -54,4 +52,3 @@ self.addEventListener('activate', event => {
     )
   );
 });
-[file content end]
