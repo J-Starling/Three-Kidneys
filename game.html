@@ -160,9 +160,9 @@
                     </div>
                     
                     <div class="slot-machine">
-                        <div class="slot" id="slot1">🍀</div>
-                        <div class="slot" id="slot2">🍀</div>
-                        <div class="slot" id="slot3">🍀</div>
+                        <div class="slot" id="slot1">🧠</div>
+                        <div class="slot" id="slot2">🧠</div>
+                        <div class="slot" id="slot3">🧠</div>
                     </div>
                     
                     <div class="controls">
@@ -196,7 +196,7 @@
         let currentBet = 10;
         let isSpinning = false;
         
-        const symbols = ['🍀', '💎', '💰', '❤️', '🍒', '⭐'];
+        const symbols = ['🧠', '🫀', '🫁', '👁️', '🦴', '💀'];
         
         function updateDisplay() {
             document.getElementById('balance').textContent = balance;
@@ -290,7 +290,7 @@
             
             const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
             slots.forEach(slot => {
-                slot.textContent = '🍀';
+                slot.textContent = '🧠';
             });
             
             const resultElement = document.getElementById('result');
@@ -306,3 +306,4 @@
 </body>
 
 </html>
+
