@@ -1,4 +1,6 @@
-const CACHE_NAME = 's-kidneys-v2';
+[file name]: service_worker.js
+[file content begin]
+const CACHE_NAME = 's-kidneys-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -7,8 +9,7 @@ const ASSETS = [
   '/icon512_maskable.png',
   '/service_worker.js',
   '/organs.html',
-  '/feedback.php',
-  '/form.php',
+  '/game.html',
   '/contacts.html',
   '/style.css',
   '/kidney_l.png',
@@ -32,23 +33,13 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-  
+self.addEventListener('fetch', (event) => {
+  const url = event.request.url;
+  if (event.request.method !== 'GET') {
+    return fetch(event.request);
+  }
   event.respondWith(
-    caches.match(event.request)
-      .then(cached => {
-        return cached || fetch(event.request)
-          .then(response => {
-            if (!response || response.status !== 200) return response;
-            
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => cache.put(event.request, responseToCache));
-            
-            return response;
-          });
-      })
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
 
@@ -63,3 +54,4 @@ self.addEventListener('activate', event => {
     )
   );
 });
+[file content end]
