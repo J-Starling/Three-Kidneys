@@ -1,0 +1,589 @@
+<html>
+
+<head>
+    <title>Казино "Три Почки"</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .game-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(40, 40, 40, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(139, 0, 0, 0.3);
+            border: 3px solid #5c0000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('casino/dark-texture.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .casino-bg {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 150px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .slot-machine {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #2d0000 0%, #5c0000 100%);
+            border-radius: 15px;
+            border: 3px solid #8b4513;
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .slot {
+            width: 110px;
+            height: 110px;
+            background: #2d2d2d;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 4px solid #8b4513;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slot::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        button {
+            background: linear-gradient(to right, #5c3c24 0%, #8b4513 100%);
+            color: #ffd700;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 0 #3a2415;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #a0522d;
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #3a2415;
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 0 #3a2415;
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 0 #444;
+            border-color: #777;
+        }
+
+        .balance {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 1.5rem 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            background: linear-gradient(45deg, #ffd700, #daa520, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0.5rem;
+            border: 2px solid #8b4513;
+            border-radius: 10px;
+            background-color: rgba(40, 40, 40, 0.9);
+        }
+
+        .result {
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            min-height: 25px;
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            background: rgba(50, 50, 50, 0.9);
+        }
+
+        .win {
+            background: linear-gradient(135deg, #2d5c2d, #3cb371);
+            color: #90ee90;
+            border-color: #32cd32;
+            animation: win-pulse 0.5s ease-in-out 3;
+        }
+
+        .lose {
+            background: linear-gradient(135deg, #5c2d2d, #dc143c);
+            color: #ff6b6b;
+            border-color: #dc143c;
+        }
+
+        .jackpot {
+            background: linear-gradient(135deg, #8b4513, #daa520, #8b4513);
+            color: #ffd700;
+            border-color: #ffd700;
+            animation: jackpot-animation 1s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        @keyframes jackpot-animation {
+            0% { transform: scale(1); box-shadow: 0 0 20px #ffd700; }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px #ffd700; }
+            100% { transform: scale(1); box-shadow: 0 0 20px #ffd700; }
+        }
+
+        @keyframes win-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .bet-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            background: rgba(139, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px dashed #8b0000;
+        }
+
+        .bet-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            min-width: 80px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .organ-counter {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 10px;
+            border: 2px solid #8b4513;
+        }
+
+        .organ-item {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+
+        .organ-emoji {
+            font-size: 2rem;
+            display: block;
+        }
+
+        .blood-splatter {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            z-index: 10;
+            pointer-events: none;
+            background: url('casino/blood-splash.png') center/contain no-repeat;
+        }
+
+        @keyframes blood-splash {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(1.5) rotate(360deg); opacity: 0; }
+        }
+
+        .sound-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: #ff6b6b;
+            z-index: 2;
+        }
+
+        .jar-decoration {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100px;
+            opacity: 0.4;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="kidney_l.png" width="210" align="left">
+        <img src="kidney_r.png" width="210" align="right">
+        <h1>Казино "Три почки&trade;"</h1>
+        <img src="logo.png" width="210" align="center">
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="organs.html">Органы</a></li>
+            <li><a href="surgery.html">Операция</a></li>
+            <li><a href="casino.html">Казино</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <div id="article">
+                <h2 style="text-align: center; color: #ffd700; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">Казино "Три почки&trade;"</h2>
+                <p style="text-align: center; font-size: 1.2rem; font-weight: bold; color: #ff6b6b;">
+                    Крути барабаны! Выигрывай - получай почки! Проигрывай - становись донором! 😈
+                </p>
+                
+                <div class="game-container">
+                    <div class="balance">
+                        💰 Баланс: <span id="balance">100</span> почек
+                    </div>
+                    
+                    <div class="organ-counter">
+                        <div class="organ-item">
+                            <span class="organ-emoji">🧠</span>
+                            <span id="brain-count">0</span>
+                        </div>
+                        <div class="organ-item">
+                            <span class="organ-emoji">🫀</span>
+                            <span id="heart-count">0</span>
+                        </div>
+                        <div class="organ-item">
+                            <span class="organ-emoji">🫁</span>
+                            <span id="lung-count">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bet-controls">
+                        <button onclick="changeBet(-10)">➖ Меньше</button>
+                        <div class="bet-amount" id="bet">10</div>
+                        <button onclick="changeBet(10)">➕ Больше</button>
+                    </div>
+                    
+                    <div class="slot-machine">
+                        <div class="slot" id="slot1">🧠</div>
+                        <div class="slot" id="slot2">🧠</div>
+                        <div class="slot" id="slot3">🧠</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button onclick="spin()" id="spin-btn">🎰 КРУТИТЬ ЗА ${currentBet} ПОЧЕК! 🎰</button>
+                        <button onclick="resetGame()">💀 НАЧАТЬ С НУЛЯ 💀</button>
+                    </div>
+                    
+                    <div class="result" id="result">
+                        🎲 Крути барабаны! Может, повезёт! 🎲
+                    </div>
+                    
+                    <div class="dark-section">
+                        <h3>📜 ПРАВИЛА ИГРЫ:</h3>
+                        <ul style="text-align: left; color: #e0e0e0;">
+                            <li>🎯 3 одинаковых органа = ДЖЕКПОТ! (x10 ставки)</li>
+                            <li>💫 2 одинаковых органа = маленький выигрыш (x2 ставки)</li>
+                            <li>☠️ Все разные органы = становишься донором (проигрыш)</li>
+                            <li>🏥 Начальный баланс: 100 почек (хватит на 10 операций)</li>
+                            <li>💀 При банкротстве - автоматическое донорство!</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        ⚠️ ВНИМАНИЕ: Все выигранные органы подлежат немедленной трансплантации! 
+                        Проигравшие становятся донорами по умолчанию! ⚠️
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Ваши органы - наша забота!
+    </footer>
+
+    <script>
+        let balance = 100;
+		let currentBet = 10;
+		let isSpinning = false;
+		let soundEnabled = true;
+		let organCounts = { '🧠': 0, '🫀': 0, '🫁': 0, '👁️': 0, '🦴': 0, '💀': 0 };
+
+		const symbols = ['🧠', '🫀', '🫁', '👁️', '🦴', '💀'];
+
+		// Загружаем баланс из операции при загрузке страницы
+		window.addEventListener('load', function() {
+			const surgeryBalance = localStorage.getItem('kidneyBalance');
+			if (surgeryBalance && surgeryBalance > 0) {
+				balance += parseInt(surgeryBalance);
+				// Очищаем баланс из операции после использования
+				localStorage.removeItem('kidneyBalance');
+				updateDisplay();
+				
+				// Показываем сообщение о бонусе
+				setTimeout(() => {
+					document.getElementById('result').innerHTML = 
+						`🎉 БОНУС! Получено ${surgeryBalance} почек из операции! 🎉`;
+					document.getElementById('result').className = 'result win';
+				}, 1000);
+			}
+		});
+
+        function playSound(type) {
+            if (soundEnabled) {
+                // Простые звуки через Web Audio API
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                if (type === 'win') {
+                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                } else if (type === 'jackpot') {
+                    oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime); // G5
+                } else {
+                    oscillator.frequency.setValueAtTime(329.63, audioContext.currentTime); // E4
+                }
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('balance').textContent = balance;
+            document.getElementById('bet').textContent = currentBet;
+            document.getElementById('spin-btn').innerHTML = `🎰 КРУТИТЬ ЗА ${currentBet} ПОЧЕК! 🎰`;
+            document.getElementById('spin-btn').disabled = isSpinning || balance < currentBet;
+            
+            // Обновляем счётчики органов
+            document.getElementById('brain-count').textContent = organCounts['🧠'];
+            document.getElementById('heart-count').textContent = organCounts['🫀'];
+            document.getElementById('lung-count').textContent = organCounts['🫁'];
+        }
+        
+        function changeBet(amount) {
+            const newBet = currentBet + amount;
+            if (newBet >= 10 && newBet <= 100 && newBet <= balance) {
+                currentBet = newBet;
+                updateDisplay();
+                if (soundEnabled) playSound('spin');
+            }
+        }
+        
+        function createBloodSplatter() {
+            const splatter = document.createElement('div');
+            splatter.className = 'blood-splatter';
+            splatter.style.left = Math.random() * 80 + 10 + '%';
+            splatter.style.top = Math.random() * 80 + 10 + '%';
+            document.querySelector('.game-container').appendChild(splatter);
+            
+            splatter.style.animation = 'blood-splash 1s ease-out forwards';
+            setTimeout(() => splatter.remove(), 1000);
+        }
+        
+        function spin() {
+            if (isSpinning || balance < currentBet) return;
+            
+            isSpinning = true;
+            balance -= currentBet;
+            updateDisplay();
+            playSound('spin');
+            
+            const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+            const resultElement = document.getElementById('result');
+            resultElement.className = 'result';
+            resultElement.textContent = '🩸 КРОВЬ, ПОТ И СЛЁЗЫ... КРУТИМ! 🩸';
+            
+            // Анимация вращения с ускорением
+            let spins = 0;
+            const maxSpins = 30;
+            let spinDelay = 80;
+            
+            const spinInterval = setInterval(() => {
+                slots.forEach(slot => {
+                    slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    slot.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+                });
+                spins++;
+                
+                // Ускоряемся к концу
+                if (spins > maxSpins * 0.7) {
+                    spinDelay += 10;
+                }
+                
+                if (spins >= maxSpins) {
+                    clearInterval(spinInterval);
+                    setTimeout(() => finishSpin(slots, resultElement), 200);
+                }
+            }, spinDelay);
+        }
+        
+        function finishSpin(slots, resultElement) {
+            const results = [];
+            slots.forEach(slot => {
+                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                slot.textContent = randomSymbol;
+                slot.style.transform = 'rotate(0deg)';
+                results.push(randomSymbol);
+                organCounts[randomSymbol]++;
+            });
+            
+            // Проверка выигрыша
+            let winAmount = 0;
+            let message = '';
+            let resultClass = 'lose';
+            
+            if (results[0] === results[1] && results[1] === results[2]) {
+                // Джекпот!
+                winAmount = currentBet * 10;
+                message = `🎉 ДЖЕКПОТ!!! ТЫ ВЫИГРАЛ ${winAmount} ПОЧЕК! 🎉`;
+                resultClass = 'jackpot';
+                playSound('jackpot');
+                for(let i = 0; i < 5; i++) setTimeout(createBloodSplatter, i * 200);
+            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                // Маленький выигрыш
+                winAmount = currentBet * 2;
+                message = `👍 ПОВЕЗЛО... НА ЭТОТ РАЗ. ТЫ ВЫИГРАЛ ${winAmount} ПОЧЕК! 👍`;
+                resultClass = 'win';
+                playSound('win');
+                createBloodSplatter();
+            } else {
+                message = '💀 ПРОИГРЫШ! ТВОИ ПОЧКИ ТЕПЕРЬ НАШИ! 💀';
+                resultClass = 'lose';
+            }
+            
+            balance += winAmount;
+            resultElement.innerHTML = message;
+            resultElement.className = `result ${resultClass}`;
+            
+            isSpinning = false;
+            updateDisplay();
+            
+            // Проверка на банкротство
+            if (balance < 10) {
+                resultElement.innerHTML = '🏥 БАНКРОТ! ТЕПЕРЬ ТЫ ДОНОР! НАЧНИ ЗАНОВО! 🏥';
+                resultElement.className = 'result lose';
+                setTimeout(() => {
+                    if (confirm('💀 ТЫ ПРОИГРАЛ ВСЁ! ХОЧЕШЬ СТАТЬ ДОНОРОМ И НАЧАТЬ ЗАНОВО?')) {
+                        resetGame();
+                    }
+                }, 1000);
+            }
+        }
+        
+        function resetGame() {
+            balance = 100;
+            currentBet = 10;
+            isSpinning = false;
+            organCounts = { '🧠': 0, '🫀': 0, '🫁': 0, '👁️': 0, '🦴': 0, '💀': 0 };
+            
+            const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+            slots.forEach(slot => {
+                slot.textContent = '🧠';
+                slot.style.transform = 'rotate(0deg)';
+            });
+            
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '🎲 УДАЧИ! ПОМНИ: ПРОИГРАЕШЬ - СТАНЕШЬ ДОНОРОМ! 🎲';
+            resultElement.className = 'result';
+            
+            updateDisplay();
+        }
+        
+        // Инициализация
+        updateDisplay();
+        
+        // Добавляем немного анимации при загрузке
+        setTimeout(() => {
+            document.querySelector('.slot-machine').style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                document.querySelector('.slot-machine').style.transform = 'scale(1)';
+            }, 200);
+        }, 500);
+    </script>
+</body>
+
+</html>
