@@ -5,8 +5,6 @@ const ASSETS = [
   '/Three-Kidneys/manifest.json',
   '/Three-Kidneys/icon512_rounded.png',
   '/Three-Kidneys/icon512_maskable.png',
-  '/Three-Kidneys/icon192.png',
-  '/Three-Kidneys/icon144.png',
   '/Three-Kidneys/service_worker.js',
   '/Three-Kidneys/organs.html',
   '/Three-Kidneys/surgery.html',
