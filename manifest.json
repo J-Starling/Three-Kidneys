@@ -13,18 +13,6 @@
             "sizes": "512x512",
             "src": "icon512_rounded.png",
             "type": "image/png"
-        },
-        {
-            "purpose": "any",
-            "sizes": "192x192",
-            "src": "icon192.png",
-            "type": "image/png"
-        },
-        {
-            "purpose": "any",
-            "sizes": "144x144",
-            "src": "icon144.png",
-            "type": "image/png"
         }
     ],
     "orientation": "portrait",
@@ -37,19 +25,5 @@
     "description": "Магазин качественных органов с доставкой",
     "start_url": "/Three-Kidneys/index.html",
     "scope": "/Three-Kidneys/",
-    "categories": ["entertainment", "games"],
-    "screenshots": [
-        {
-            "src": "screenshot-wide.png",
-            "sizes": "1280x720",
-            "type": "image/png",
-            "form_factor": "wide"
-        },
-        {
-            "src": "screenshot-narrow.png",
-            "sizes": "375x812",
-            "type": "image/png",
-            "form_factor": "narrow"
-        }
-    ]
+    "categories": ["entertainment", "games"]
 }
