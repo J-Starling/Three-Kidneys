@@ -93,7 +93,6 @@ nav ul li a {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
