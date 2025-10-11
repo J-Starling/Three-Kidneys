@@ -380,7 +380,7 @@
     </footer>
 
     <script>
-        let balance = 100;
+                let balance = 100;
         let currentBet = 10;
         let isSpinning = false;
         let soundEnabled = true;
@@ -389,6 +389,8 @@
         const symbols = ['🧠', '🫀', '🫁', '👁️', '🦴', '💀'];
 
         function playSound(type) {
+            if (soundEnabled) {
+                // Простые звуки через Web Audio API
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
@@ -409,6 +411,7 @@
                 
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.5);
+            }
         }
 
         function updateDisplay() {
@@ -417,6 +420,7 @@
             document.getElementById('spin-btn').innerHTML = `🎰 КРУТИТЬ ЗА ${currentBet} ПОЧЕК! 🎰`;
             document.getElementById('spin-btn').disabled = isSpinning || balance < currentBet;
             
+            // Обновляем счётчики органов
             document.getElementById('brain-count').textContent = organCounts['🧠'];
             document.getElementById('heart-count').textContent = organCounts['🫀'];
             document.getElementById('lung-count').textContent = organCounts['🫁'];
@@ -550,7 +554,7 @@
             
             updateDisplay();
         }
-        .png
+        
         // Инициализация
         updateDisplay();
         
