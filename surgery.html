@@ -1,5 +1,6 @@
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Три почки - Операция</title>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -195,6 +196,64 @@
             cursor: not-allowed;
             transform: none;
         }
+		
+		@media (max-width: 768px) {
+        .surgery-game {
+            padding: 10px;
+            margin: 5px auto;
+        }
+        
+        .operation-table {
+            height: 50vh;
+            min-height: 300px;
+            max-height: 500px;
+        }
+        
+        .time-display {
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        
+        .surgical-tools {
+            gap: 5px;
+            padding: 10px;
+        }
+        
+        .tool {
+            min-width: 70px;
+            min-height: 70px;
+        }
+        
+        .controls {
+            flex-direction: column;
+        }
+        
+        button {
+            width: 100%;
+            margin: 2px 0;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .surgery-game {
+            padding: 5px;
+        }
+        
+        .score-board {
+            padding: 5px;
+        }
+        
+        .score-value {
+            font-size: 1.3rem;
+        }
+        
+        .tool {
+            min-width: 60px;
+            min-height: 60px;
+            font-size: 1.5rem;
+        }
+    }
     </style>
 </head>
 
