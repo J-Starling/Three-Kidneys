@@ -1,0 +1,548 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Три почки - Операция</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .surgery-game {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(40, 40, 40, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(139, 0, 0, 0.3);
+            border: 3px solid #5c0000;
+            position: relative;
+        }
+
+        .operation-table {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #2d1a1a, #1a0f0f);
+            border: 5px solid #8b4513;
+            border-radius: 10px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .human-body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 400px;
+            background: #8b5a5a;
+            border-radius: 100px 100px 20px 20px;
+            border: 3px solid #5c0000;
+        }
+
+        .organ {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            width: 60px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .organ:hover {
+            transform: scale(1.1);
+        }
+
+        .brain { top: 10%; left: 35%; width: 80px; height: 60px; background-image: url('organs/brain.png'); }
+        .heart { top: 25%; left: 40%; width: 50px; height: 50px; background-image: url('organs/heart.png'); }
+        .lungs { top: 30%; left: 30%; width: 100px; height: 70px; background-image: url('organs/lungs.png'); }
+        .liver { top: 45%; left: 35%; width: 70px; height: 50px; background-image: url('organs/liver.png'); }
+        .stomach { top: 50%; left: 45%; width: 50px; height: 40px; background-image: url('organs/stomach.png'); }
+        .kidney-left { top: 55%; left: 25%; width: 40px; height: 30px; background-image: url('organs/kidney.png'); }
+        .kidney-right { top: 55%; left: 55%; width: 40px; height: 30px; background-image: url('organs/kidney.png'); }
+        .intestines { top: 60%; left: 30%; width: 100px; height: 40px; background-image: url('organs/intestine.png'); }
+
+        .surgical-tools {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(139, 69, 19, 0.3);
+            border-radius: 10px;
+            border: 2px solid #8b4513;
+        }
+
+        .tool {
+            width: 80px;
+            height: 80px;
+            background: #5c5c5c;
+            border: 3px solid #8b4513;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .tool:hover {
+            background: #6c6c6c;
+            border-color: #ff6b6b;
+            transform: translateY(-5px);
+        }
+
+        .tool.active {
+            background: #8b0000;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        .tool-cost {
+            font-size: 0.7rem;
+            color: #ff6b6b;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 2px solid #8b0000;
+        }
+
+        .score-item {
+            text-align: center;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .score-value {
+            font-size: 2rem;
+            color: #ff6b6b;
+        }
+
+        .blood-pool {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, #8b0000, #5c0000);
+            transition: height 0.5s ease;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .time-display {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(139, 69, 19, 0.3);
+            border-radius: 10px;
+            border: 2px solid #8b4513;
+        }
+
+        @keyframes pulse-alert {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .alert {
+            animation: pulse-alert 1s infinite;
+            color: #ff6b6b;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        button {
+            background: linear-gradient(to right, #5c3c24 0%, #8b4513 100%);
+            color: #ffd700;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+		
+		@media (max-width: 768px) {
+        .surgery-game {
+            padding: 10px;
+            margin: 5px auto;
+        }
+        
+        .operation-table {
+            height: 50vh;
+            min-height: 300px;
+            max-height: 500px;
+        }
+        
+        .time-display {
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        
+        .surgical-tools {
+            gap: 5px;
+            padding: 10px;
+        }
+        
+        .tool {
+            min-width: 70px;
+            min-height: 70px;
+        }
+        
+        .controls {
+            flex-direction: column;
+        }
+        
+        button {
+            width: 100%;
+            margin: 2px 0;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .surgery-game {
+            padding: 5px;
+        }
+        
+        .score-board {
+            padding: 5px;
+        }
+        
+        .score-value {
+            font-size: 1.3rem;
+        }
+        
+        .tool {
+            min-width: 60px;
+            min-height: 60px;
+            font-size: 1.5rem;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="kidney_l.png" width="210" align="left">
+        <img src="kidney_r.png" width="210" align="right">
+        <h1>Операционная "Три почки&trade;"</h1>
+        <img src="logo.png" width="210" align="center">
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="organs.html">Органы</a></li>
+            <li><a href="surgery.html">Операция</a></li>
+            <li><a href="casino.html">Казино</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="content">
+            <div id="article">
+                <h2 style="text-align: center; color: #ffd700;">Симулятор хирурга</h2>
+                <p style="text-align: center; color: #ff6b6b; font-weight: bold;">
+                    Проведи операцию! Извлеки органы до того как закончится время!
+                </p>
+                
+                <div class="surgery-game">
+                    <div class="score-board">
+                        <div class="score-item">
+                            Извлечено органов<br>
+                            <span class="score-value" id="organs-removed">0</span>
+                        </div>
+                        <div class="score-item">
+                            Заработано почек<br>
+                            <span class="score-value" id="kidneys-earned">0</span>
+                        </div>
+                        <div class="score-item">
+                            Уровень крови<br>
+                            <span class="score-value" id="blood-level">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="time-display">
+                        ⏰ Осталось времени: <span id="time-left">0</span> сек
+                    </div>
+
+                    <div class="surgical-tools">
+                        <div class="tool active" data-tool="scalpel" onclick="selectTool('scalpel')">
+                            🔪
+                            <div class="tool-cost">-15 сек</div>
+                        </div>
+                        <div class="tool" data-tool="forceps" onclick="selectTool('forceps')">
+                            📏
+                            <div class="tool-cost">-10 сек</div>
+                        </div>
+                        <div class="tool" data-tool="saw" onclick="selectTool('saw')">
+                            🪚
+                            <div class="tool-cost">-5 сек</div>
+                        </div>
+                        <div class="tool" data-tool="clamp" onclick="selectTool('clamp')">
+                            🗜️
+                            <div class="tool-cost">+5 сек</div>
+                        </div>
+                    </div>
+
+                    <div class="operation-table">
+                        <div class="blood-pool" id="blood-pool"></div>
+                        <div class="human-body">
+                            <div class="organ brain" onclick="removeOrgan('brain')"></div>
+                            <div class="organ heart" onclick="removeOrgan('heart')"></div>
+                            <div class="organ lungs" onclick="removeOrgan('lungs')"></div>
+                            <div class="organ liver" onclick="removeOrgan('liver')"></div>
+                            <div class="organ stomach" onclick="removeOrgan('stomach')"></div>
+                            <div class="organ kidney-left" onclick="removeOrgan('kidney')"></div>
+                            <div class="organ kidney-right" onclick="removeOrgan('kidney')"></div>
+                            <div class="organ intestines" onclick="removeOrgan('intestines')"></div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <button onclick="startGame()" id="start-btn">🔪 НАЧАТЬ ОПЕРАЦИЮ!</button>
+                        <button onclick="resetGame()">💀 НАЧАТЬ ЗАНОВО</button>
+                    </div>
+
+                    <div class="result" id="surgery-result">
+                        Выбери инструмент и начинай операцию! Помни: слишком много крови - пациент умрёт!
+                    </div>
+
+                    <div class="dark-section">
+                        <h3>📋 ПРАВИЛА ОПЕРАЦИИ:</h3>
+                        <ul style="text-align: left; color: #e0e0e0;">
+                            <li>🔪 Скальпель - аккуратно, но медленно (+5 почек, -15 сек)</li>
+                            <li>📏 Пинцет - средняя скорость и аккуратность (+3 почки, -10 сек)</li>
+                            <li>🪚 Пила - быстро, но много крови (+1 почка, -5 сек)</li>
+                            <li>🗜️ Зажим - останавливает кровотечение (+5 сек, не извлекает органы)</li>
+                            <li>💀 Уровень крови выше 80% - пациент умирает!</li>
+                            <li>⏰ Начальное время: 2-3 минуты (случайно)</li>
+                            <li>🎯 Цель: извлечь все органы до окончания времени!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        ⚠️ ВНИМАНИЕ: Все пациенты подписали согласие на операцию... наверное! ⚠️
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Ваши органы - наша забота!
+    </footer>
+
+    <script>
+        let score = 0;
+        let organsRemoved = 0;
+        let bloodLevel = 0;
+        let timeLeft = 0;
+        let gameActive = false;
+        let selectedTool = 'scalpel';
+        let totalOrgans = 8; // мозг, сердце, легкие, печень, желудок, 2 почки, кишечник
+
+        const organValues = {
+            'scalpel': 5,
+            'forceps': 3,
+            'saw': 1
+        };
+
+        const bloodRates = {
+            'scalpel': 5,
+            'forceps': 10,
+            'saw': 20
+        };
+
+        const timeCosts = {
+            'scalpel': 15,
+            'forceps': 10,
+            'saw': 5,
+            'clamp': -5
+        };
+
+        function selectTool(tool) {
+            selectedTool = tool;
+            document.querySelectorAll('.tool').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tool[data-tool="${tool}"]`).classList.add('active');
+        }
+
+        function removeOrgan(organType) {
+            if (!gameActive || timeLeft <= 0) return;
+
+            const organ = event.target;
+            
+            if (selectedTool === 'clamp') {
+                // Зажим останавливает кровотечение и добавляет время
+                bloodLevel = Math.max(0, bloodLevel - 15);
+                timeLeft += timeCosts.clamp;
+                updateBloodLevel();
+                updateDisplay();
+                return;
+            }
+
+            // Проверяем, достаточно ли времени
+            if (timeLeft < timeCosts[selectedTool]) {
+                document.getElementById('surgery-result').textContent = '⏰ Недостаточно времени для этого инструмента!';
+                return;
+            }
+
+            // Анимация удаления органа
+            organ.style.transition = 'all 0.5s ease';
+            organ.style.transform = 'scale(0) rotate(180deg)';
+            organ.style.opacity = '0';
+
+            // Тратим время
+            timeLeft -= timeCosts[selectedTool];
+            
+            // Добавляем кровь
+            bloodLevel += bloodRates[selectedTool];
+            updateBloodLevel();
+
+            // Добавляем очки
+            score += organValues[selectedTool];
+            organsRemoved++;
+
+            updateDisplay();
+
+            // Сохраняем результат в localStorage для казино
+            localStorage.setItem('kidneyBalance', score);
+
+            // Удаляем орган из DOM после анимации
+            setTimeout(() => {
+                organ.style.display = 'none';
+                checkWinCondition();
+            }, 500);
+        }
+
+        function updateBloodLevel() {
+            const bloodPool = document.getElementById('blood-pool');
+            const bloodPercent = Math.min(100, bloodLevel);
+            bloodPool.style.height = bloodPercent + '%';
+            document.getElementById('blood-level').textContent = bloodPercent + '%';
+
+            if (bloodPercent >= 80) {
+                bloodPool.style.background = 'linear-gradient(to top, #ff0000, #8b0000)';
+                document.getElementById('blood-level').classList.add('alert');
+            } else {
+                bloodPool.style.background = 'linear-gradient(to top, #8b0000, #5c0000)';
+                document.getElementById('blood-level').classList.remove('alert');
+            }
+
+            if (bloodPercent >= 100) {
+                endGame('💀 ПАЦИЕНТ УМЕР ОТ КРОВОПОТЕРИ! Операция провалена!');
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('organs-removed').textContent = organsRemoved;
+            document.getElementById('kidneys-earned').textContent = score;
+            document.getElementById('time-left').textContent = timeLeft;
+        }
+
+        function startGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            document.getElementById('start-btn').disabled = true;
+            
+            // Генерируем случайное начальное время от 120 до 180 секунд
+            timeLeft = Math.floor(Math.random() * 61) + 120; // 2-3 минуты
+            updateDisplay();
+            
+            // Запускаем таймер
+            const gameTimer = setInterval(() => {
+                if (!gameActive) {
+                    clearInterval(gameTimer);
+                    return;
+                }
+                
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    endGame('⏰ ВРЕМЯ ВЫШЛО! Операция не завершена!');
+                    clearInterval(gameTimer);
+                }
+            }, 1000);
+        }
+
+        function checkWinCondition() {
+            const remainingOrgans = document.querySelectorAll('.organ:not([style*="display: none"])').length;
+            if (remainingOrgans === 0) {
+                endGame(`🎉 ОПЕРАЦИЯ УСПЕШНА! Заработано: ${score} почек!`);
+            }
+        }
+
+        function endGame(message) {
+            gameActive = false;
+            document.getElementById('surgery-result').textContent = message;
+            document.getElementById('surgery-result').className = 
+                message.includes('УСПЕШНА') ? 'result win' : 'result lose';
+        }
+
+        function resetGame() {
+            gameActive = false;
+            
+            score = 0;
+            organsRemoved = 0;
+            bloodLevel = 0;
+            timeLeft = 0;
+            
+            // Восстанавливаем органы
+            document.querySelectorAll('.organ').forEach(organ => {
+                organ.style.display = 'block';
+                organ.style.transform = 'scale(1) rotate(0deg)';
+                organ.style.opacity = '1';
+                organ.style.transition = 'none';
+            });
+            
+            updateBloodLevel();
+            updateDisplay();
+            
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('surgery-result').textContent = 
+                'Выбери инструмент и начинай операцию! Помни: слишком много крови - пациент умрёт!';
+            document.getElementById('surgery-result').className = 'result';
+        }
+
+        // Инициализация
+        updateDisplay();
+        updateBloodLevel();
+    </script>
+</body>
+</html>

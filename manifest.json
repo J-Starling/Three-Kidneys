@@ -1,0 +1,29 @@
+{
+    "theme_color": "#8b0000",
+    "background_color": "#1a1a1a",
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "icon512_rounded.png",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "portrait",
+    "display": "standalone",
+    "dir": "ltr",
+    "lang": "ru",
+    "id": "/Three-Kidneys/",
+    "name": "Три почки - Магазин органов",
+    "short_name": "Три почки",
+    "description": "Магазин качественных органов с доставкой",
+    "start_url": "/Three-Kidneys/index.html",
+    "scope": "/Three-Kidneys/",
+    "categories": ["entertainment", "games"]
+}

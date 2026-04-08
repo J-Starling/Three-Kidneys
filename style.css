@@ -1,0 +1,678 @@
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a url('casino/dark-texture.png') repeat;
+    color: #e0e0e0;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(135deg, #0c0c0c 0%, #2d1a1a 100%);
+}
+
+header {
+    background: linear-gradient(135deg, #2d0000 0%, #5c0000 100%);
+    color: #ff6b6b;
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(139, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid #8b0000;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('casino/blood-splash.png') center/cover;
+    opacity: 0.1;
+}
+
+header img {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)) brightness(0.9);
+}
+
+header img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)) brightness(1.1);
+}
+
+header h1 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    margin: 0.5em 0;
+    font-size: 2.2em;
+    position: relative;
+    display: inline-block;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    background: linear-gradient(to right, #3a2415 0%, #5c3c24 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #8b4513;
+}
+
+nav ul li {
+    margin: 0 1rem;
+    position: relative;
+}
+
+nav ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: #ff6b6b;
+    transition: all 0.3s ease;
+}
+
+nav ul li:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+nav ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    font-weight: bold;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+nav ul li a:hover {
+    background: rgba(139, 0, 0, 0.3);
+    transform: translateY(-2px);
+    color: #ffd700;
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+}
+
+#content {
+    background: rgba(40, 40, 40, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(139, 0, 0, 0.3);
+    padding: 2rem;
+    margin: 1rem auto;
+    transition: all 0.3s ease;
+    border: 2px solid #5c0000;
+    position: relative;
+}
+
+#content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('casino/dark-texture.png');
+    opacity: 0.1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+#content:hover {
+    box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+#article {
+    text-align: left;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+h2 {
+    color: #ff6b6b;
+    border-bottom: 3px solid #8b4513;
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+h2:hover {
+    color: #ffd700;
+    transform: translateX(5px);
+}
+
+footer {
+    background: linear-gradient(to right, #2d1a1a 0%, #1a0f0f 100%);
+    color: #ff6b6b;
+    text-align: center;
+    padding: 1.5rem 0;
+    width: 100%;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border-top: 2px solid #5c0000;
+    font-weight: bold;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, #ff6b6b 50%, transparent 100%);
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: rgba(50, 50, 50, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #5c0000;
+}
+
+form p {
+    margin: 1rem 0;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #5c0000;
+    border-radius: 4px;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
+    outline: none;
+    background: #3d3d3d;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to right, #5c0000 0%, #8b0000 100%);
+    color: #ffd700;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(to right, #8b0000 0%, #5c0000 100%);
+}
+
+.organ-item {
+    background: rgba(60, 60, 60, 0.7);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border-left: 5px solid #8b0000;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.organ-item:hover {
+    background: rgba(80, 80, 80, 0.8);
+    transform: translateX(5px);
+    border-left-color: #ff6b6b;
+}
+
+.price-tag {
+    background: linear-gradient(135deg, #8b4513, #a0522d);
+    color: #ffd700;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.highlight {
+    background: rgba(139, 0, 0, 0.3);
+    border: 2px solid #ff6b6b;
+}
+
+.special {
+    background: linear-gradient(135deg, #b8860b, #daa520);
+    color: #2d0000;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+header h1 {
+    animation: pulse 4s infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+header img {
+    animation: float 5s ease-in-out infinite;
+}
+
+header img:nth-child(2) {
+    animation-delay: 0.7s;
+}
+
+header img:nth-child(4) {
+    animation-delay: 1.4s;
+}
+
+.dark-section {
+    background: rgba(30, 30, 30, 0.8);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 10px;
+    border: 2px solid #5c0000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.feature-card {
+    background: rgba(50, 50, 50, 0.8);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #8b4513;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff6b6b;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.warning-box {
+    background: linear-gradient(135deg, #5c0000, #8b0000);
+    color: #ffd700;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border: 2px solid #ff6b6b;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    
+    header {
+        padding: 0.5rem 0;
+        position: relative;
+    }
+    
+    header img {
+        width: 80px !important;
+        margin: 0 2px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    header h1 {
+        font-size: 1.3em !important;
+        margin: 0.2em 0;
+        padding: 0 10px;
+        line-height: 1.2;
+        word-wrap: break-word;
+    }
+    
+    nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    
+    nav ul li {
+        margin: 0;
+        flex: 1 0 33%;
+        min-width: 120px;
+    }
+    
+    nav ul li a {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.9em;
+        text-align: center;
+        white-space: nowrap;
+    }
+    
+    main {
+        padding: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    #content {
+        padding: 1rem;
+        margin: 0.5rem auto;
+        width: 95%;
+    }
+    
+    #article {
+        padding: 0.5rem;
+    }
+    
+    h2 {
+        font-size: 1.4em;
+        text-align: center;
+        margin: 1rem 0;
+    }
+    
+    /* Адаптация для игры в операцию */
+    .surgery-game {
+        padding: 1rem;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .operation-table {
+        height: 400px;
+        margin: 1rem 0;
+    }
+    
+    .human-body {
+        width: 180px;
+        height: 360px;
+    }
+    
+    .organ {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .brain { top: 8%; left: 32%; width: 70px !important; height: 50px !important; }
+    .heart { top: 22%; left: 38%; width: 45px !important; height: 45px !important; }
+    .lungs { top: 28%; left: 25%; width: 90px !important; height: 60px !important; }
+    .liver { top: 42%; left: 32%; width: 60px !important; height: 45px !important; }
+    .stomach { top: 48%; left: 42%; width: 45px !important; height: 35px !important; }
+    .kidney-left, .kidney-right { width: 35px !important; height: 25px !important; }
+    .intestines { top: 58%; left: 25%; width: 90px !important; height: 35px !important; }
+    
+    .surgical-tools {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+    
+    .tool {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+        flex: 1 0 40%;
+    }
+    
+    .tool-cost {
+        font-size: 0.6rem;
+    }
+    
+    .score-board {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+    
+    .score-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .score-value {
+        font-size: 1.5rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    button {
+        padding: 1rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    /* Адаптация для казино */
+    .game-container {
+        padding: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .slot-machine {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .slot {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    .bet-controls {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .organ-counter {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .organ-item {
+        flex: 1 0 30%;
+    }
+    
+    .balance {
+        font-size: 1.5rem;
+        padding: 0.8rem;
+    }
+    
+    .result {
+        font-size: 1.1rem;
+        padding: 1rem;
+        min-height: auto;
+    }
+    
+    /* Адаптация для страницы органов */
+    .organ-item {
+        padding: 1rem;
+        margin: 0.8rem 0;
+    }
+    
+    .organ-item img {
+        width: 60px;
+        float: right;
+        margin-left: 10px;
+    }
+    
+    .price-tag {
+        font-size: 0.9em;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    footer {
+        padding: 1rem 0;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+    
+    header img {
+        width: 60px !important;
+    }
+    
+    header h1 {
+        font-size: 1.1em !important;
+        margin: 0.1em 0;
+    }
+    
+    nav ul li {
+        flex: 1 0 50%;
+    }
+    
+    nav ul li a {
+        padding: 0.6rem 0.3rem;
+        font-size: 0.85em;
+    }
+    
+    .operation-table {
+        height: 350px;
+    }
+    
+    .human-body {
+        width: 150px;
+        height: 300px;
+    }
+    
+    .organ {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .brain { top: 7%; left: 30%; width: 60px !important; height: 40px !important; }
+    .heart { top: 20%; left: 35%; width: 40px !important; height: 40px !important; }
+    .lungs { top: 25%; left: 20%; width: 80px !important; height: 50px !important; }
+    .liver { top: 40%; left: 30%; width: 50px !important; height: 40px !important; }
+    .stomach { top: 45%; left: 40%; width: 40px !important; height: 30px !important; }
+    .kidney-left, .kidney-right { width: 30px !important; height: 20px !important; }
+    .intestines { top: 55%; left: 20%; width: 80px !important; height: 30px !important; }
+    
+    .tool {
+        width: 60px;
+        height: 60px;
+        font-size: 1.3rem;
+    }
+    
+    .slot {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.2em;
+    }
+    
+    .dark-section ul {
+        padding-left: 1rem;
+    }
+    
+    .dark-section li {
+        margin: 0.5rem 0;
+        font-size: 0.9em;
+    }
+}
+
+/* Дополнительные улучшения для touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .organ, .tool, button, nav ul li a {
+        min-height: 44px; /* Минимальный размер для касания */
+    }
+    
+    .organ {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    button:active, .tool:active, .organ:active {
+        transform: scale(0.95);
+        transition: transform 0.1s;
+    }
+}
+
+/* Предотвращение масштабирования при фокусе на полях ввода */
+@media (max-width: 768px) {
+    input[type="text"],
+    textarea {
+        font-size: 16px; /* Предотвращает масштабирование в iOS */
+    }
+}
+
+/* Улучшение скролла на мобильных */
+@media (max-width: 768px) {
+    html {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    body {
+        position: relative;
+    }
+}
+
+/* Адаптация viewport для мобильных */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+    min-zoom: 0.25;
+    max-zoom: 5.0;
+    user-zoom: fixed;
+}
